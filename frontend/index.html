@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daily Work Diary — Optimized Solution</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ===================== LOGIN PAGE ===================== -->
+  <div id="loginPage" class="page active">
+    <div class="login-bg">
+      <div class="login-left">
+        <div class="brand-mark">
+          <div class="brand-logo">
+            <span class="logo-os">OS</span>
+          </div>
+          <h1 class="brand-name">Optimized Solution</h1>
+          <p class="brand-tagline">Daily Work Diary Management</p>
+        </div>
+        <div class="login-illustration">
+          <div class="il-card il-card--1">
+            <div class="il-dot"></div>
+            <div class="il-line"></div>
+            <div class="il-line il-line--short"></div>
+          </div>
+          <div class="il-card il-card--2">
+            <div class="il-dot il-dot--blue"></div>
+            <div class="il-line"></div>
+            <div class="il-line il-line--short"></div>
+          </div>
+          <div class="il-card il-card--3">
+            <div class="il-dot il-dot--green"></div>
+            <div class="il-line"></div>
+            <div class="il-line il-line--short"></div>
+          </div>
+        </div>
+      </div>
+      <div class="login-right">
+        <div class="login-card">
+          <div class="login-card__header">
+            <div class="role-tabs">
+              <button class="role-tab active" data-role="user" onclick="switchLoginRole('user')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                Employee
+              </button>
+              <button class="role-tab" data-role="admin" onclick="switchLoginRole('admin')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                Admin
+              </button>
+            </div>
+            <h2 class="login-title">Welcome back</h2>
+            <p class="login-subtitle" id="loginSubtitle">Sign in to your employee account</p>
+          </div>
+
+          <div class="login-card__body">
+            <div id="loginError" class="alert alert--error" style="display:none"></div>
+
+            <div class="form-group">
+              <label class="form-label">Full Name</label>
+              <div class="input-wrapper">
+                <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                <input type="text" id="loginName" class="form-input" placeholder="Enter your full name" autocomplete="name" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Password</label>
+              <div class="input-wrapper">
+                <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <input type="password" id="loginPassword" class="form-input" placeholder="Enter your password" autocomplete="current-password" />
+                <button class="eye-toggle" type="button" onclick="togglePassword()">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <button class="btn btn--primary btn--full" onclick="handleLogin()">
+              <span>Sign In</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+
+            <div class="login-hint">
+              <p><strong>Demo Accounts:</strong></p>
+              <p>Admin: <code>Admin</code> / <code>admin123</code></p>
+              <p>Employee: <code>Keyur Makadia</code> / <code>keyur123</code></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== EMPLOYEE PAGE ===================== -->
+  <div id="employeePage" class="page">
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="navbar__brand">
+        <div class="brand-logo brand-logo--sm"><span class="logo-os">OS</span></div>
+        <div>
+          <span class="navbar__company">Optimized Solution</span>
+          <span class="navbar__module">Work Diary</span>
+        </div>
+      </div>
+      <div class="navbar__user">
+        <div class="user-badge">
+          <div class="user-avatar" id="userAvatar">K</div>
+          <div>
+            <div class="user-name" id="userNameDisplay">Keyur Makadia</div>
+            <div class="user-role">Employee</div>
+          </div>
+        </div>
+        <button class="btn btn--ghost btn--sm" onclick="logout()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Logout
+        </button>
+      </div>
+    </nav>
+
+    <div class="app-container">
+      <!-- Form Section -->
+      <div class="section-header">
+        <div>
+          <h2 class="section-title" id="formTitle">New Work Entry</h2>
+          <p class="section-desc" id="formDesc">Log your daily tasks and progress</p>
+        </div>
+        <button class="btn btn--outline" id="cancelEditBtn" onclick="cancelEdit()" style="display:none">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          Cancel Edit
+        </button>
+      </div>
+
+      <div class="entry-card">
+        <div id="entryFormError" class="alert alert--error" style="display:none"></div>
+        <div id="entryFormSuccess" class="alert alert--success" style="display:none"></div>
+
+        <div class="form-grid">
+          <!-- Field 1: Employee Name -->
+          <div class="form-group">
+            <label class="form-label">
+              <span class="label-number">01</span>
+              Employee Name
+            </label>
+            <select id="employeeName" class="form-input" disabled>
+              <!-- populated by JS -->
+            </select>
+          </div>
+
+          <!-- Field 2: Date -->
+          <div class="form-group">
+            <label class="form-label">
+              <span class="label-number">02</span>
+              Date
+            </label>
+            <input type="date" id="entryDate" class="form-input" readonly />
+          </div>
+
+          <!-- Field 3: Project Name -->
+          <div class="form-group">
+            <label class="form-label">
+              <span class="label-number">03</span>
+              Project Name <span class="required">*</span>
+            </label>
+            <input type="text" id="projectName" class="form-input" placeholder="e.g. ERP System" />
+          </div>
+
+          <!-- Field 4: Task Name -->
+          <div class="form-group">
+            <label class="form-label">
+              <span class="label-number">04</span>
+              Task Name <span class="required">*</span>
+            </label>
+            <input type="text" id="taskName" class="form-input" placeholder="e.g. API Integration" />
+          </div>
+
+          <!-- Field 5: Task Description -->
+          <div class="form-group form-group--full">
+            <label class="form-label">
+              <span class="label-number">05</span>
+              Task Description
+            </label>
+            <textarea id="taskDescription" class="form-input form-textarea" placeholder="Describe what you worked on..."></textarea>
+          </div>
+
+          <!-- Field 6: Hours Assigned -->
+          <div class="form-group">
+            <label class="form-label">
+              <span class="label-number">06</span>
+              Hours Assigned <span class="required">*</span>
+            </label>
+            <input type="number" id="hoursAssigned" class="form-input" placeholder="0" min="0" max="24" step="0.5" />
+          </div>
+
+          <!-- Field 7: Hours Spent -->
+          <div class="form-group">
+            <label class="form-label">
+              <span class="label-number">07</span>
+              Hours Spent <span class="required">*</span>
+            </label>
+            <input type="number" id="hoursSpent" class="form-input" placeholder="0" min="0" max="24" step="0.5" />
+          </div>
+
+          <!-- Field 8: Status -->
+          <div class="form-group">
+            <label class="form-label">
+              <span class="label-number">08</span>
+              Status <span class="required">*</span>
+            </label>
+            <select id="entryStatus" class="form-input">
+              <option value="Pending">Pending</option>
+              <option value="Completed">Completed</option>
+            </select>
+          </div>
+
+          <!-- Field 9: Remarks -->
+          <div class="form-group form-group--full">
+            <label class="form-label">
+              <span class="label-number">09</span>
+              Remarks
+            </label>
+            <input type="text" id="entryRemarks" class="form-input" placeholder="Any additional notes..." />
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn btn--primary" id="submitBtn" onclick="submitEntry()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+            <span id="submitBtnText">Submit Entry</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Entries Table -->
+      <div class="section-header" style="margin-top: 2.5rem">
+        <div>
+          <h2 class="section-title">My Entries</h2>
+          <p class="section-desc">Showing entries from the last 5 days</p>
+        </div>
+        <button class="btn btn--outline btn--sm" onclick="loadUserEntries()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+          Refresh
+        </button>
+      </div>
+
+      <div class="table-card">
+        <div class="table-wrapper">
+          <table class="data-table" id="userEntriesTable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Date</th>
+                <th>Project</th>
+                <th>Task</th>
+                <th>Description</th>
+                <th>Hrs Assigned</th>
+                <th>Hrs Spent</th>
+                <th>Status</th>
+                <th>Remarks</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="userEntriesBody">
+              <tr><td colspan="10" class="table-empty">Loading entries...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== ADMIN PAGE ===================== -->
+  <div id="adminPage" class="page">
+    <!-- Admin Navbar -->
+    <nav class="navbar navbar--admin">
+      <div class="navbar__brand">
+        <div class="brand-logo brand-logo--sm"><span class="logo-os">OS</span></div>
+        <div>
+          <span class="navbar__company">Optimized Solution</span>
+          <span class="navbar__module">Admin Dashboard</span>
+        </div>
+      </div>
+      <div class="navbar__user">
+        <div class="user-badge">
+          <div class="user-avatar user-avatar--admin">A</div>
+          <div>
+            <div class="user-name">Admin</div>
+            <div class="user-role">Administrator</div>
+          </div>
+        </div>
+        <button class="btn btn--ghost btn--sm" onclick="logout()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Logout
+        </button>
+      </div>
+    </nav>
+
+    <div class="app-container">
+      <!-- Stats Row -->
+      <div class="stats-row" id="adminStats">
+        <div class="stat-card">
+          <div class="stat-icon stat-icon--blue">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+          <div>
+            <div class="stat-number" id="statTotalEntries">—</div>
+            <div class="stat-label">Total Entries</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon stat-icon--green">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div>
+            <div class="stat-number" id="statCompleted">—</div>
+            <div class="stat-label">Completed</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon stat-icon--red">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <div>
+            <div class="stat-number" id="statPending">—</div>
+            <div class="stat-label">Pending</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon stat-icon--grey">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          </div>
+          <div>
+            <div class="stat-number" id="statEmployees">—</div>
+            <div class="stat-label">Employees</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filter + Export bar -->
+      <div class="filter-bar">
+        <div class="filter-bar__left">
+          <div class="filter-group">
+            <label class="filter-label">Filter by Date</label>
+            <input type="date" id="adminFilterDate" class="form-input form-input--sm" onchange="loadAdminEntries()" />
+          </div>
+          <div class="filter-group">
+            <label class="filter-label">Filter by Employee</label>
+            <input type="text" id="adminFilterEmployee" class="form-input form-input--sm" placeholder="Employee name..." oninput="loadAdminEntries()" />
+          </div>
+          <button class="btn btn--outline btn--sm" onclick="clearAdminFilters()">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            Clear
+          </button>
+        </div>
+        <div class="filter-bar__right">
+          <button class="btn btn--danger" onclick="exportPDF()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            Export PDF
+          </button>
+        </div>
+      </div>
+
+      <!-- Admin Table -->
+      <div class="table-card">
+        <div class="table-wrapper">
+          <table class="data-table" id="adminEntriesTable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Employee</th>
+                <th>Date</th>
+                <th>Project</th>
+                <th>Task</th>
+                <th>Description</th>
+                <th>Hrs Assigned</th>
+                <th>Hrs Spent</th>
+                <th>Status</th>
+                <th>Remarks</th>
+              </tr>
+            </thead>
+            <tbody id="adminEntriesBody">
+              <tr><td colspan="10" class="table-empty">Loading entries...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div id="deleteModal" class="modal-overlay" style="display:none">
+    <div class="modal">
+      <div class="modal__icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#C93731" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+      </div>
+      <h3 class="modal__title">Delete Entry</h3>
+      <p class="modal__text">Are you sure you want to delete this work entry? This action cannot be undone.</p>
+      <div class="modal__actions">
+        <button class="btn btn--outline" onclick="closeDeleteModal()">Cancel</button>
+        <button class="btn btn--danger" onclick="confirmDelete()">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
